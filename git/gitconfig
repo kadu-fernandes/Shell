@@ -1,0 +1,94 @@
+# http://michaelwales.com/articles/make-gitconfig-work-for-you/
+# https://git-scm.com/docs/git-config
+
+[init]
+	defaultBranch = master
+
+[color]
+    ui = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    frag = magenta bold
+    meta = yellow bold
+    new = green bold
+    old = red bold
+    whitespace = red reverse
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = red
+
+[core]
+    editor = vim
+    quotepath = false
+    compression = 9
+    pager = less -FRSX
+    fileMode = false
+    excludesfile = /data/Shell/git/gitignoreGlobal.conf
+    autocrlf = input
+
+[push]
+    default = current
+    recurseSubmodules = check
+    autoSetupRemote = true
+
+[fetch]
+    recurseSubmodules = yes
+    fsckObjects = true
+    output = compact
+
+[status]
+    relativePaths = true
+    renames = true
+    showUntrackedFiles = normal
+    submoduleSummary = true
+    showStash = true
+
+[stash]
+    showPatch = false
+    showStat = true
+
+[rerere]
+    enabled = 0
+    autoupdate = 0
+
+[user]
+    name = Eduardo Fernandes
+    email = kadu.fernandes.pt@gmail.com
+
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+
+[alias]
+    branches-all = branch --all
+    ignored = status --ignored
+    log-one = log --date=format:'%Y-%m-%d %H:%M:%S' --pretty=format:"%C(green)%h%C(blue)%x20%ad%x20%C(yellow)%an%x20%C(white)%s%Creset"
+    logme = log master..
+    pullme = pull --ff-only --no-rebase --progress
+    rank = shortlog -sn --no-merges
+    uncommit-last = reset --soft HEAD~1
+    update = "!git pull && git push"
+
+[pull]
+	rebase = false
+
+[cola]
+	spellcheck = false
+
+[credential]
+	helper = store
+
+[merge]
+	tool = meld
+
+[checkout]
+    defaultRemote=origin 

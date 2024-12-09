@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Set your current repository details to a user.
+
+regex="^[a-z0-9!#\$%&'*+/=?^_\`{|}~-]+(\.[a-z0-9!#$%&'*+/=?^_\`{|}~-]+)*@([a-z0-9]([a-z0-9-]*[a-z0-9])?\.)+[a-z0-9]([a-z0-9-]*[a-z0-9])?\$"
+
+if [ -z "${1}" ]; then
+    email="kadu.fernandes.pt@gmail.com"
+elif [[ ! "${1}" =~ $regex ]]; then
+    email="kadu.fernandes.pt@gmail.com"
+else
+    email="${1}"
+fi
+
+if [ -z "${2}" ]; then
+    user="Eduardo Fernandes"
+else
+    user="${2}"
+fi
+
+git config user.name "${user}"
+git config user.email "${email}"

@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Make a "Working In Progress" commit with the current time.
+
+git add --all --no-ignore-removal
+DATE="$(date +'%Y-%m-%d %H:%M')"
+if [ -z "$1" ]; then
+    MESSAGE="WIP: $(date +'%Y-%m-%d %H:%M')"
+else
+    MESSAGE="${1}"
+fi
+git commit -m "${MESSAGE}"
+git push --progress origin $(git symbolic-ref --short HEAD)

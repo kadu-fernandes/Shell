@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Try to fix the current branch with the remote counterpart
+
+git branch --set-upstream-to=origin/$(git symbolic-ref --short HEAD) $(git symbolic-ref --short HEAD)

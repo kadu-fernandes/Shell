@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# delete a branch
+
+if [ -z "${1}" ]; then
+    echo -e "You need to give a valid branch name.\n"
+    exit
+fi
+
+if [ "develop" == "${1}" ] | [ "release/develop_core" == "${1}" ]; then
+    echo -e "The '${1}' branch cannot be deleted.\n"
+    exit
+fi
+
+git push origin --delete "${1}"
+git branch --delete --force "${1}"

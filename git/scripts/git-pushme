@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Push a branch
+
+git push --progress origin $(git symbolic-ref --short HEAD) "${@}"

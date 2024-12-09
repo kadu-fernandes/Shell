@@ -1,0 +1,5 @@
+#!/bin/bash
+#
+# Tottaly replaces a the local code with its remote counterpart.
+
+git branch --merged | grep -v \* | xargs git branch -D 

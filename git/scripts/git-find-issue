@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# List all branches in a detailed way
+
+commit_message_file=$1
+
+branch=$(git symbolic-ref -q HEAD)
+branch=$(git symbolic-ref -q HEAD)
+type=$(echo ${branch} | sed -E 's/^refs\/heads\/(.*)XBE-[0-9]+.*$/\1/g')
+issue=$(echo ${branch} | sed -E 's/^refs\/heads\/.*(XBE-[0-9]+).*$/\1/g')
+
+if [[ "${type}" == "bugfix"* ]]; then
+    type="fix"
+elif [[ "${type}" == "hotfix"*  ]]; then
+    type="fix"
+elif [[ "${type}" == "fix"*  ]]; then
+    type="fix"
+elif [[ "${type}" == "refactor"*  ]]; then
+    type="refactor"
+elif [[ "${type}" == "feature"*  ]]; then
+    type="feat"
+elif [[ "${type}" == "feat"*  ]]; then
+    type="feat"
+elif [[ "${type}" == "release"*  ]]; then
+    type="release"
+elif [[ "${type}" == "chore"*  ]]; then
+    type="chore"
+elif [[ "${type}" == "docs"*  ]]; then
+    type="docs"
+elif [[ "${type}" == "style"*  ]]; then
+    type="style"
+elif [[ "${type}" == "test"*  ]]; then
+    type="test"
+else
+    type=""
+fi
+
+if [[ "${issue}" != "XBE"* ]]; then
+    issue=""
+fi
+
+prefix="${type}(${issue}): "
+if [[ -z "${type}" ]] || [[ -z "${issue}" ]]; then
+    prefix=""
+fi
+
+if [[ ! -z "${prefix}" ]]; then
+    printf "${prefix}\n"
+else
+    printf "${branch}\n"
+fi

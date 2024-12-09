@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Tottaly replaces a the local code with its remote counterpart.
+
+if [[ "${1}" != "yes" ]]; then
+    printf "\033[0;31mIf you really want to nuke this repository, you need to pass \033[0;32myes \033[0;31mas parameter!!!\033[0m\n"
+    exit
+fi
+
+branch=origin/$(git symbolic-ref --short HEAD)
+printf "\033[0;33mI'm nuking ${branch}...\033[0m\n"
+
+git reset --hard $branch
+
+if [ $? -eq 0 ]; then
+   printf "\033[0;33m${branch} branch was nuked.\033[0m\n"
+else
+   printf "\033[0;91mSomething failed and the ${branch} branch was not nuked.\033[0m\n"
+fi
+
