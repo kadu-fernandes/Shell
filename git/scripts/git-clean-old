@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Define the branches to exclude
+EXCLUDED_BRANCHES=("develop" "master" "main")
+
+# Get the list of merged branches, excluding the ones in EXCLUDED_BRANCHES
+BRANCHES_TO_DELETE=$(git branch --merged | grep -vE "^\*" | grep -vE "$(
+    IFS=\|
+    echo "${EXCLUDED_BRANCHES[*]}"
+)")
+
+# Check if there are branches to delete
+if [ -z "$BRANCHES_TO_DELETE" ]; then
+    echo "No merged branches to delete."
+    exit 0
+fi
+
+# Display branches to be deleted
+echo "The following branches will be deleted:"
+echo "$BRANCHES_TO_DELETE"
+
+# Ask for confirmation
+read -p "Do you want to proceed? [y/N]: " CONFIRM
+if [[ "$CONFIRM" != "y" && "$CONFIRM" != "Y" ]]; then
+    echo "Operation canceled."
+    exit 0
+fi
+
+# Delete the branches
+echo "$BRANCHES_TO_DELETE" | xargs -n 1 git branch -d
+
+echo "Merged branches deleted."
